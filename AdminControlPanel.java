@@ -161,8 +161,6 @@ public class AdminControlPanel implements Observer {
 					DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
 					model.reload();
 					
-					//Assignment 3 showing creation time
-					JOptionPane.showMessageDialog(null, newUser.getDisplayName() +" creationTime: " + newUser.getCreationTime());
 				}
 				
 			}

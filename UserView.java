@@ -25,6 +25,7 @@ public class UserView {
 	//NewsFeed list
 	private String listFeed;
 	private JTextArea FeedListTxt;
+	private JTextField textField_2;
 	/**
 	 * Launch the application.
 	 */
@@ -51,7 +52,7 @@ public class UserView {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize(User user, Map<String ,User> users) {
+	private void initialize(User user, Map<String ,User> users) {		
 		HashMap<String,User> currentUsers = (HashMap<String, User>) users;
 		User current = user;
 		
@@ -65,7 +66,7 @@ public class UserView {
 			listFeed += "\n - " + s.getUser().getDisplayName() + ": " + s.getMessage();
 		}
 		frame = new JFrame();
-		frame.setBounds(100, 100, 370, 350);
+		frame.setBounds(100, 100, 370, 434);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -153,9 +154,16 @@ public class UserView {
 		postTweetBtn.setBounds(219, 153, 120, 29);
 		frame.getContentPane().add(postTweetBtn);
 		
+		//Assignment 3 showing creation time *******
+		textField_2 = new JTextField();
+		textField_2.setText(user.getDisplayName() +" creationTime: " + user.getCreationTime());
+		textField_2.setBounds(22, 332, 279, 29);
+		textField_2.setColumns(10);
+		textField_2.setEditable(false);
+		frame.getContentPane().add(textField_2);
+		
 		
 		
 		frame.setVisible(true);
 	}
-
 }
