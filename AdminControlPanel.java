@@ -160,6 +160,9 @@ public class AdminControlPanel implements Observer {
 					selected.add(newNode);
 					DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
 					model.reload();
+					
+					//Assignment 3 showing creation time
+					JOptionPane.showMessageDialog(null, newUser.getDisplayName() +" creationTime: " + newUser.getCreationTime());
 				}
 				
 			}
@@ -260,6 +263,56 @@ public class AdminControlPanel implements Observer {
 		});
 		btnNewButton.setBounds(272, 209, 89, 23);
 		frame.getContentPane().add(btnNewButton);
+		
+		//Assignment 3 ID Verification********
+		JButton verificationBtn = new JButton("ID Verification");
+		verificationBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				List<SystemEntry> all = new ArrayList<SystemEntry>();
+//				List<User> u = new ArrayList<User>(users.values());
+				List<UserGroups> g = new ArrayList<UserGroups>(groups.values());
+				all.addAll(users.values());
+				all.addAll(groups.values());
+				boolean validation = true;
+				/*due to the hashmap used, there cannot be multiple users with the same name nor groups,
+					but users and groups could have the same name*/
+				for(UserGroups gr : g)
+				{
+					//checking each group to see if it has that same name as one of the users
+					if(users.containsKey(gr.getDisplayName())) validation = false;
+				}
+				for(SystemEntry current : all) 
+				{
+					if(current.getDisplayName().contains(" ")) validation = false; //if it contains a space
+				}
+				
+				if(validation == true) 	JOptionPane.showMessageDialog(null, "Valid users and group IDs");
+				else JOptionPane.showMessageDialog(null, "Invalid users and group IDs"); 
+			}
+		});
+		
+		
+		verificationBtn.setBounds(434, 209, 89, 23);
+		frame.getContentPane().add(verificationBtn);
+		
+		//Assignment 3, getting the last updated user *********
+		JButton lastUserBtn = new JButton("LastUpdatedUser");
+		lastUserBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				List<User> u = new ArrayList<User>(users.values());
+				User userLast = null;
+				for(User a : u) {
+					if(userLast == null) userLast = a;
+					//if the current user a has a later update time change the userLast to a;
+					else if(userLast.getUpdateTime() < a.getUpdateTime()) userLast = a;
+				}
+				JOptionPane.showMessageDialog(null, "Last Updated User is " + userLast.getDisplayName());	
+				
+			}
+		});
+		lastUserBtn.setBounds(576, 209, 89, 23);
+		frame.getContentPane().add(lastUserBtn);
+		
 		frame.setVisible(true);
 	}
 
@@ -269,5 +322,4 @@ public class AdminControlPanel implements Observer {
 	public void update(Subject subject) {
 		if(subject instanceof User) users.put(subject.getDisplayName(), (User) subject);
 	}
-
 }

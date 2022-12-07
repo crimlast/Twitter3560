@@ -26,26 +26,32 @@ public class User extends Subject{
 	}
 	public void addFollower(Subject follow) {
 		followers.add(follow);
+		setUpdateTime(); //Assignment 3
 	}
 	public void addFollowing(Subject follow) {
 		following.add(follow);
+		setUpdateTime(); //Assignment 3
 	}
 	public void setFollowers(ArrayList<Subject> followers) {
 		this.followers = followers;
+		setUpdateTime(); //Assignment 3
 	}
 	public List<Subject> getFollowing() {
 		return following;
 	}
 	public void setFollowing(ArrayList<Subject> following) {
 		this.following = following;
+		setUpdateTime(); //Assignment 3
 	}
 	public void tweetMessage(Tweet t) {
 		feed.add(t);
+		setUpdateTime(); //Assignment 3
 	}
 
 
 	public List<Tweet> getNewsFeed() {
 		return feed;
+		
 	}
 	
 	public void addFeed(Tweet t) {
@@ -53,10 +59,13 @@ public class User extends Subject{
 		//if the tweet was done by this user, add the number of tweets
 		if(t.getUser().getDisplayName().equals(this.getDisplayName())) 
 			numOfTweets++;
+		setUpdateTime(); //Assignment 3
+
 	}
 	
 	public void setFeed(ArrayList<Tweet> feed) {
 		this.feed = feed;
+		setUpdateTime(); //Assignment 3
 	}
 	public int getNumberOfTweets() {
 		return numOfTweets;
